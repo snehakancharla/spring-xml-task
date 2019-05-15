@@ -1,28 +1,26 @@
 package com.stackroute;
 
 
+import com.stackroute.domain.config.AppConfig;
 import com.stackroute.domain.Movie;
+import com.stackroute.domain.Actor;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.xml.XmlBeanFactory;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.core.io.Resource;
+
 public class Main {
+    public static void main(String[] args) {
+        AnnotationConfigApplicationContext annotationConfigApplicationContext = new AnnotationConfigApplicationContext();
 
-        public static void main(String ar[]) {
-            // Task-1 using Application context
-            ApplicationContext bean=new ClassPathXmlApplicationContext("constructorbean.xml");
-            /*Movie movie =(Movie)bean.getBean("beanbytype");
-            System.out.println(movie.getActor());*/
-
-
-            Movie movie1 =(Movie)bean.getBean("beanbyname");
-            System.out.println(movie1.getActor());
-
+        annotationConfigApplicationContext.register(AppConfig.class);
+        annotationConfigApplicationContext.refresh();
+        Movie movie=(Movie)annotationConfigApplicationContext.getBean("movie");
+        Actor actor=(Actor)annotationConfigApplicationContext.getBean("actor");
+        System.out.println(movie);
+        System.out.println(actor);
 
 
 
-        }
+
+    }
 }
